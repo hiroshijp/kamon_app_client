@@ -24,18 +24,20 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Maps Sample App'),
-          backgroundColor: Colors.green[700],
-        ),
+        appBar: null,
         body: GoogleMap(
+          zoomControlsEnabled: false,
           cloudMapId: 'f655976e4b276da1',
           onMapCreated: _onMapCreated,
           initialCameraPosition: CameraPosition(
             target: _center,
-            zoom: 11.7,
+            zoom: 12.0,
           ),
+          markers: {const Marker(
+            markerId: MarkerId('m-0001'),
+            position: LatLng(35.01016474,135.76853744) )},
         ),
       ),
     );
