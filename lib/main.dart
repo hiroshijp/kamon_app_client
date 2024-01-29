@@ -1,45 +1,55 @@
-import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'dart:js';
 
-void main() {
-  runApp(const MyApp());
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'pages/map_page.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  late GoogleMapController mapController;
-
-  final LatLng _center = const LatLng(34.985849, 135.7587667);
-
-  void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: null,
-        body: GoogleMap(
-          zoomControlsEnabled: false,
-          cloudMapId: 'f655976e4b276da1',
-          onMapCreated: _onMapCreated,
-          initialCameraPosition: CameraPosition(
-            target: _center,
-            zoom: 12.0,
-          ),
-          markers: {const Marker(
-            markerId: MarkerId('m-0001'),
-            position: LatLng(35.01016474,135.76853744) )},
-        ),
+    return MaterialApp.router(
+      routerConfig: goRouter,
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
       ),
     );
   }
 }
+
+final goRouter = GoRouter(
+  initialLocation: '/',
+  routes: [
+    GoRoute(
+      path: '/',
+      pageBuilder: (context, state) {
+        return MaterialPage(
+          child: const MapPage(),
+        );
+      },
+    ),
+    // TODO: サインアップ画面作成
+    GoRoute(
+      path: '/signup',
+      pageBuilder: (context, state){
+        return MaterialPage(child: const Placeholder());
+      }
+    ),
+    // TODO: サインイン画面作成
+    GoRoute(
+      path: '/signin',
+      pageBuilder: (context, state){
+        return MaterialPage(child: const Placeholder());
+      }
+    ),
+  ]
+);
