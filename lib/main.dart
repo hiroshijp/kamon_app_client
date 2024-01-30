@@ -26,30 +26,25 @@ class MyApp extends StatelessWidget {
   }
 }
 
-final goRouter = GoRouter(
-  initialLocation: '/',
-  routes: [
-    GoRoute(
-      path: '/',
-      pageBuilder: (context, state) {
-        return MaterialPage(
-          child: const MapPage(),
-        );
-      },
-    ),
-    // TODO: サインアップ画面作成
-    GoRoute(
+final goRouter = GoRouter(initialLocation: '/', routes: [
+  GoRoute(
+    path: '/',
+    pageBuilder: (context, state) {
+      return MaterialPage(
+        child: const MapPage(),
+      );
+    },
+  ),
+  // TODO: サインアップ画面作成
+  GoRoute(
       path: '/signup',
-      pageBuilder: (context, state){
+      pageBuilder: (context, state) {
         return MaterialPage(child: const Placeholder());
-      }
-    ),
-    // TODO: サインイン画面作成
-    GoRoute(
+      }),
+  // TODO: サインイン画面作成
+  GoRoute(
       path: '/signin',
-      pageBuilder: (context, state){
+      pageBuilder: (context, state) {
         return MaterialPage(child: const Placeholder());
-      }
-    ),
-  ]
-);
+      }),
+]);

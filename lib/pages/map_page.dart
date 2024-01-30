@@ -33,7 +33,8 @@ class _MapPageState extends ConsumerState<MapPage> {
               ),
               children: [
                 TileLayer(
-                  urlTemplate: 'https://api.maptiler.com/maps/jp-mierune-gray/{z}/{x}/{y}.png?key=${dotenv.env['MAPTILER_API_KEY']}',
+                  urlTemplate:
+                      'https://api.maptiler.com/maps/jp-mierune-gray/{z}/{x}/{y}.png?key=${dotenv.env['MAPTILER_API_KEY']}',
                 ),
                 MarkerLayer(markers: [
                   ...data.map((crest) => CrestMarker(crest: crest)),
