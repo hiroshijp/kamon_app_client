@@ -15,36 +15,32 @@ class MapPage extends ConsumerStatefulWidget {
 }
 
 class _MapPageState extends ConsumerState<MapPage> {
-
   @override
   Widget build(BuildContext context) {
     final crestList = ref.watch(crestListProvider);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: null,
-        body: crestList.when(
-          error: (err, _) => Center(child: Text(err.toString())),
-          loading: () => const CircularProgressIndicator(),
-          data:(data) => FlutterMap(
-            options: const MapOptions(
-              // 亀戸駅の座標
-              initialCenter: LatLng(34.985849, 135.7587667),
-              initialZoom: 16.0,
+          appBar: null,
+          body: crestList.when(
+            error: (err, _) => Center(child: Text(err.toString())),
+            loading: () => const CircularProgressIndicator(),
+            data: (data) => FlutterMap(
+              options: const MapOptions(
+                // 亀戸駅の座標
+                initialCenter: LatLng(34.985849, 135.7587667),
+                initialZoom: 13.0,
+              ),
+              children: [
+                TileLayer(
+                  urlTemplate: 'https://api.maptiler.com/maps/jp-mierune-gray/{z}/{x}/{y}.png?key=${dotenv.env['MAPTILER_API_KEY']}',
+                ),
+                MarkerLayer(markers: [
+                  ...data.map((crest) => CrestMarker(crest: crest)),
+                ]),
+              ],
             ),
-            children: [
-              TileLayer(
-                urlTemplate: 'https://api.maptiler.com/maps/jp-mierune-gray/{z}/{x}/{y}.png?key=${dotenv.env['MAPTILER_API_KEY']}',
-              ),
-              MarkerLayer(
-                  markers: [
-                    ...data.map((crest) => CrestMarker(crest: crest)),
-                  ]
-              ),
-            ],
-          ),
-        )
-      ),
+          )),
     );
   }
 }
