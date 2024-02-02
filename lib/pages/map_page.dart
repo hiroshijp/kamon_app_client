@@ -16,7 +16,6 @@ class MapPage extends ConsumerStatefulWidget {
 }
 
 class _MapPageState extends ConsumerState<MapPage> {
-
   @override
   Widget build(BuildContext context) {
     final crestList = ref.watch(crestListProvider);

@@ -4,8 +4,7 @@ part 'crest.freezed.dart';
 part 'crest.g.dart';
 
 @freezed
-class Crest with _$Crest{
-  
+class Crest with _$Crest {
   const factory Crest({
     required String id,
     required String name,
