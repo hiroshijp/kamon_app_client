@@ -5,10 +5,11 @@ import 'package:latlong2/latlong.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:kamon_app_client/providers/crest/crest_list_provider.dart';
 import 'package:kamon_app_client/componets/crest_marker.dart';
-// import 'package:kamon_app_client/utils/from_base64_to_uint8list.dart';
 
 class MapPage extends ConsumerStatefulWidget {
-  const MapPage({super.key});
+  const MapPage({
+    Key? key,
+    }) : super(key: key);
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _MapPageState();
@@ -28,7 +29,6 @@ class _MapPageState extends ConsumerState<MapPage> {
           loading: () => const CircularProgressIndicator(),
           data:(data) => FlutterMap(
             options: const MapOptions(
-              // 亀戸駅の座標
               initialCenter: LatLng(34.985849, 135.7587667),
               initialZoom: 16.0,
             ),

@@ -1,12 +1,11 @@
-//import 'dart:js';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'pages/map_page.dart';
+import 'package:kamon_app_client/pages/map_page.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: '.env');
   runApp(const ProviderScope(child: MyApp()));
 }
