@@ -6,6 +6,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:kamon_app_client/providers/crest/crest_list_provider.dart';
 import 'package:kamon_app_client/providers/position.dart';
 import 'package:kamon_app_client/componets/crest_marker.dart';
+import 'package:kamon_app_client/utils/from_position_to_latlng.dart';
 import 'package:kamon_app_client/constants.dart';
 
 class MapPage extends ConsumerStatefulWidget {
@@ -20,30 +21,30 @@ class MapPage extends ConsumerStatefulWidget {
 class _MapPageState extends ConsumerState<MapPage> {
   @override
   Widget build(BuildContext context) {
-    final crestList = ref.watch(crestListProvider);
+    final MapController mapController = MapController();
     final currentPosition = ref.watch(currentPositionProvider);
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
+    return Scaffold(
           appBar: null,
-          body: crestList.when(
+          body: currentPosition.when(
             error: (err, _) => Center(child: Text(err.toString())),
-            loading: () => const CircularProgressIndicator(),
+            loading: () => const Center(child: CircularProgressIndicator(),),
             data: (data) => FlutterMap(
-              options: const MapOptions(
-                initialCenter: kyotoStationPosition,
+              options: MapOptions(
+                initialCenter: fromPositionToLatlng(data),
                 initialZoom: 16.0,
               ),
+              mapController: mapController,
               children: [
                 TileLayer(
                   urlTemplate: 'https://api.maptiler.com/maps/jp-mierune-gray/{z}/{x}/{y}.png?key=${dotenv.env['MAPTILER_API_KEY']}',
                 ),
-                MarkerLayer(markers: [
-                  ...data.map((crest) => CrestMarker(crest: crest)),
-                ]),
+                CircleLayer(circles: [CircleMarker(point: fromPositionToLatlng(data), radius: 100, useRadiusInMeter: true, color: Colors.lightBlue.withOpacity(0.3))],
+                ),
+                MarkerLayer(markers: [Marker(point: fromPositionToLatlng(data), child: Container(decoration: BoxDecoration(color: Colors.blue, shape: BoxShape.circle,)))]
+                ),
               ],
             ),
-          )),
+          )
     );
   }
 }

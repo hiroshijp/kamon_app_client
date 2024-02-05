@@ -16,8 +16,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       routerConfig: goRouter,
-      title: 'Flutter Demo',
+      title: 'kamon_app_client',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
