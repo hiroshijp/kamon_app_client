@@ -40,10 +40,17 @@ class _MapPageState extends ConsumerState<MapPage> {
           mapController: mapController,
           children: [
             TileLayer(
-              urlTemplate: 'https://api.maptiler.com/maps/jp-mierune-gray/{z}/{x}/{y}.png?key=${dotenv.env['MAPTILER_API_KEY']}',
+              urlTemplate:
+                  'https://api.maptiler.com/maps/jp-mierune-gray/{z}/{x}/{y}.png?key=${dotenv.env['MAPTILER_API_KEY']}',
             ),
             CircleLayer(
-              circles: [CircleMarker(point: fromPositionToLatlng(data), radius: 100, useRadiusInMeter: true, color: Colors.lightBlue.withOpacity(0.3))],
+              circles: [
+                CircleMarker(
+                    point: fromPositionToLatlng(data),
+                    radius: 100,
+                    useRadiusInMeter: true,
+                    color: Colors.lightBlue.withOpacity(0.3))
+              ],
             ),
             MarkerLayer(markers: [
               Marker(
@@ -59,7 +66,9 @@ class _MapPageState extends ConsumerState<MapPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          ref.read(mapControllerProvider.notifier).setCamera(ref.read(nowProvider), 16.0);
+          ref
+              .read(mapControllerProvider.notifier)
+              .setCamera(ref.read(nowProvider), 16.0);
         },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
