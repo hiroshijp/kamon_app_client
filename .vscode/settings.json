@@ -1,3 +1,5 @@
 {
-    "dart.flutterHotReloadOnSave": "never"
+    "dart.flutterHotReloadOnSave": "never",
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true
 }

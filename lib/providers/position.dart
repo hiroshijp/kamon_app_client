@@ -9,7 +9,8 @@ final currentPositionProvider = StreamProvider<Position>((ref) async* {
   if (permission == LocationPermission.denied) {
     permission = await Geolocator.requestPermission();
   }
-  if (permission == LocationPermission.always || permission == LocationPermission.whileInUse) {
+  if (permission == LocationPermission.always ||
+      permission == LocationPermission.whileInUse) {
     yield* Geolocator.getPositionStream();
   }
   if (permission == LocationPermission.deniedForever) {

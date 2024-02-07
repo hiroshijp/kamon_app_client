@@ -10,6 +10,7 @@ class MapControllerNotifier extends StateNotifier<MapController> {
   }
 }
 
-final mapControllerProvider = StateNotifierProvider<MapControllerNotifier, MapController>((ref) {
+final mapControllerProvider =
+    StateNotifierProvider<MapControllerNotifier, MapController>((ref) {
   return MapControllerNotifier();
 });
