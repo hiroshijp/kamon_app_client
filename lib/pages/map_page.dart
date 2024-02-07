@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:kamon_app_client/componets/markers/current_position_buffer_marker.dart';
+import 'package:kamon_app_client/componets/markers/current_position_marker.dart';
 import 'package:kamon_app_client/providers/map_control.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:kamon_app_client/providers/crest/crest_list_provider.dart';
 import 'package:kamon_app_client/providers/position.dart';
-import 'package:kamon_app_client/componets/crest_marker.dart';
+import 'package:kamon_app_client/componets/markers/crest_marker.dart';
 import 'package:kamon_app_client/utils/from_position_to_latlng.dart';
 import 'package:kamon_app_client/constants.dart';
 import 'package:kamon_app_client/providers/position.dart';
@@ -45,33 +47,17 @@ class _MapPageState extends ConsumerState<MapPage> {
             ),
             CircleLayer(
               circles: [
-                CircleMarker(
-                    point: fromPositionToLatlng(data),
-                    radius: 100,
-                    useRadiusInMeter: true,
-                    color: Colors.lightBlue.withOpacity(0.3))
+                CurrentPositionBufferMarker(latLng: fromPositionToLatlng(data)),
               ],
             ),
-            MarkerLayer(markers: [
-              Marker(
-                  point: fromPositionToLatlng(data),
-                  child: Container(
-                      decoration: BoxDecoration(
-                    color: Colors.blue,
-                    shape: BoxShape.circle,
-                  )))
-            ]),
+            MarkerLayer(
+              markers: [
+                CurrentPositionMarker(latLng: fromPositionToLatlng(data)),
+                CrestMarker(),
+              ],
+            ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          ref
-              .read(mapControllerProvider.notifier)
-              .setCamera(ref.read(nowProvider), 16.0);
-        },
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }
