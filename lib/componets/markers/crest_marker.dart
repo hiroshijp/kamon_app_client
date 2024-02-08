@@ -4,41 +4,28 @@ import 'package:latlong2/latlong.dart';
 import '../../models/crest/crest.dart';
 
 class CrestMarker extends Marker {
-  // final Crest crest;
+  final LatLng latLng;
   CrestMarker({
     Key? key,
-    // required this.crest,
+    required this.latLng,
   }) : super(
+          key: key,
           height: 100,
           width: 100,
-          point: LatLng(35.7100069, 139.8108103),
+          point: latLng,
           child: _customIcon,
         );
 
   static final _customIcon = Container(
-    decoration: const BoxDecoration(
+    decoration: BoxDecoration(
       color: Colors.white,
-      borderRadius: BorderRadius.all(Radius.circular(10)),
-      border: Border(
-        top: BorderSide(
-          color: Colors.black,
-          width: 3,
-        ),
-        left: BorderSide(
-          color: Colors.black,
-          width: 3,
-        ),
-        right: BorderSide(
-          color: Colors.black,
-          width: 3,
-        ),
-        bottom: BorderSide(
-          color: Colors.black,
-          width: 3,
-        ),
+      shape: BoxShape.circle,
+      border: Border.all(
+        color: const Color.fromRGBO(253, 184, 39, 1),
+        width: 7,
       ),
-      image: DecorationImage(
-        image: AssetImage("sample_1.jpg"),
+      image: const DecorationImage(
+        image: AssetImage("sample.png"),
       ),
     ),
   );

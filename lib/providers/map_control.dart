@@ -5,12 +5,11 @@ import 'package:latlong2/latlong.dart';
 class MapControllerNotifier extends StateNotifier<MapController> {
   MapControllerNotifier() : super(MapController());
 
-  void setCamera(LatLng location, double zoom) {
-    state.move(location, zoom);
+  void setCamera(LatLng location) {
+    state.move(location, state.camera.zoom);
   }
 }
 
-final mapControllerProvider =
-    StateNotifierProvider<MapControllerNotifier, MapController>((ref) {
+final mapControllerProvider = StateNotifierProvider<MapControllerNotifier, MapController>((ref) {
   return MapControllerNotifier();
 });

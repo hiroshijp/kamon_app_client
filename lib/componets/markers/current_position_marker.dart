@@ -16,7 +16,7 @@ class CurrentPositionMarker extends Marker {
 
   static final Widget _marker = Container(
     decoration: const BoxDecoration(
-      color: Colors.blue,
+      color: Color.fromRGBO(33, 32, 156, 1),
       shape: BoxShape.circle,
     ),
   );

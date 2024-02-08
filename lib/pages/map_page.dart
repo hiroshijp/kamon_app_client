@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:kamon_app_client/componets/markers/current_position_buffer_marker.dart';
 import 'package:kamon_app_client/componets/markers/current_position_marker.dart';
+import 'package:kamon_app_client/componets/markers/sample_latlng_list.dart';
 import 'package:kamon_app_client/providers/map_control.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -26,38 +27,33 @@ class _MapPageState extends ConsumerState<MapPage> {
   @override
   Widget build(BuildContext context) {
     final mapController = ref.watch(mapControllerProvider);
-    final currentPosition = ref.watch(currentPositionProvider);
-    return Scaffold(
-      appBar: null,
-      body: currentPosition.when(
-        error: (err, _) => Center(child: Text(err.toString())),
-        loading: () => const Center(
-          child: CircularProgressIndicator(),
+    final currentPosition = ref.watch(geoLocatorProvider);
+    return currentPosition.when(
+      error: (err, _) => Center(child: Text(err.toString())),
+      loading: () => const Center(child: CircularProgressIndicator(color: Color.fromRGBO(33, 32, 156, 1))),
+      data: (data) => FlutterMap(
+        options: MapOptions(
+          initialCenter: fromPositionToLatlng(data),
+          initialZoom: 18.0,
         ),
-        data: (data) => FlutterMap(
-          options: MapOptions(
-            initialCenter: fromPositionToLatlng(data),
-            initialZoom: 16.0,
+        mapController: mapController,
+        children: [
+          TileLayer(
+            urlTemplate: 'https://api.maptiler.com/maps/jp-mierune-gray/{z}/{x}/{y}.png?key=${dotenv.env['MAPTILER_API_KEY']}',
           ),
-          mapController: mapController,
-          children: [
-            TileLayer(
-              urlTemplate:
-                  'https://api.maptiler.com/maps/jp-mierune-gray/{z}/{x}/{y}.png?key=${dotenv.env['MAPTILER_API_KEY']}',
-            ),
-            CircleLayer(
-              circles: [
-                CurrentPositionBufferMarker(latLng: fromPositionToLatlng(data)),
-              ],
-            ),
-            MarkerLayer(
-              markers: [
-                CurrentPositionMarker(latLng: fromPositionToLatlng(data)),
-                CrestMarker(),
-              ],
-            ),
-          ],
-        ),
+          CircleLayer(
+            circles: [
+              CurrentPositionBufferMarker(latLng: fromPositionToLatlng(data)),
+            ],
+          ),
+          MarkerLayer(
+            markers: [
+              CurrentPositionMarker(latLng: fromPositionToLatlng(data)),
+              // TODO:サンプルのため削除
+              ...sampleLatlngList.map((e) => CrestMarker(latLng: e)),
+            ],
+          ),
+        ],
       ),
     );
   }
