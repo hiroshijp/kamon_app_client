@@ -30,7 +30,9 @@ class _MapPageState extends ConsumerState<MapPage> {
     final currentPosition = ref.watch(geoLocatorProvider);
     return currentPosition.when(
       error: (err, _) => Center(child: Text(err.toString())),
-      loading: () => const Center(child: CircularProgressIndicator(color: Color.fromRGBO(33, 32, 156, 1))),
+      loading: () => const Center(
+          child:
+              CircularProgressIndicator(color: Color.fromRGBO(33, 32, 156, 1))),
       data: (data) => FlutterMap(
         options: MapOptions(
           initialCenter: fromPositionToLatlng(data),
@@ -39,8 +41,10 @@ class _MapPageState extends ConsumerState<MapPage> {
         mapController: mapController,
         children: [
           TileLayer(
-            //urlTemplate: 'https://api.maptiler.com/maps/jp-mierune-gray/{z}/{x}/{y}.png?key=${dotenv.env['MAPTILER_API_KEY']}',
-            urlTemplate: 'https://api.maptiler.com/maps/jp-mierune-gray/{z}/{x}/{y}.png?key=lRnt0N9IfLmKchyLeMi4',
+            urlTemplate:
+                'https://api.maptiler.com/maps/jp-mierune-gray/{z}/{x}/{y}.png?key=${dotenv.env['MAPTILER_API_KEY']}',
+            //　TODO:一時的に公開するためのもの。後で削除。
+            // urlTemplate: 'https://api.maptiler.com/maps/jp-mierune-gray/{z}/{x}/{y}.png?key=lRnt0N9IfLmKchyLeMi4',
           ),
           CircleLayer(
             circles: [
