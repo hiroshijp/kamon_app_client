@@ -42,9 +42,9 @@ class _MapPageState extends ConsumerState<MapPage> {
         children: [
           TileLayer(
             urlTemplate:
+                //　TODO:一時的に公開するためのもの。後で削除。
+                // urlTemplate: 'https://api.maptiler.com/maps/jp-mierune-gray/{z}/{x}/{y}.png?key=lRnt0N9IfLmKchyLeMi4',
                 'https://api.maptiler.com/maps/jp-mierune-gray/{z}/{x}/{y}.png?key=${dotenv.env['MAPTILER_API_KEY']}',
-            //　TODO:一時的に公開するためのもの。後で削除。
-            // urlTemplate: 'https://api.maptiler.com/maps/jp-mierune-gray/{z}/{x}/{y}.png?key=lRnt0N9IfLmKchyLeMi4',
           ),
           CircleLayer(
             circles: [
