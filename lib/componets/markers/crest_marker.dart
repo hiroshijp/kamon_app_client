@@ -10,8 +10,8 @@ class CrestMarker extends Marker {
     required this.latLng,
   }) : super(
           key: key,
-          height: 100,
-          width: 100,
+          height: 50,
+          width: 50,
           point: latLng,
           child: _customIcon,
         );
@@ -22,7 +22,7 @@ class CrestMarker extends Marker {
       shape: BoxShape.circle,
       border: Border.all(
         color: const Color.fromRGBO(253, 184, 39, 1),
-        width: 7,
+        width: 1,
       ),
       image: const DecorationImage(
         image: AssetImage("sample.png"),

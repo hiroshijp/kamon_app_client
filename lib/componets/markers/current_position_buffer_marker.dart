@@ -9,7 +9,7 @@ class CurrentPositionBufferMarker extends CircleMarker {
     required this.latLng,
   }) : super(
           point: latLng,
-          radius: 25,
+          radius: 100.0,
           useRadiusInMeter: true,
           color: Colors.lightBlue.withOpacity(0.1),
         );

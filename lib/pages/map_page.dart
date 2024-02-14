@@ -36,26 +36,32 @@ class _MapPageState extends ConsumerState<MapPage> {
       data: (data) => FlutterMap(
         options: MapOptions(
           initialCenter: fromPositionToLatlng(data),
-          initialZoom: 18.0,
+          initialZoom: 17.0,
         ),
         mapController: mapController,
         children: [
           TileLayer(
             urlTemplate:
-                //　TODO:一時的に公開するためのもの。後で削除。
                 // urlTemplate: 'https://api.maptiler.com/maps/jp-mierune-gray/{z}/{x}/{y}.png?key=lRnt0N9IfLmKchyLeMi4',
+                //'https://api.maptiler.com/maps/jp-mierune-streets/{z}/{x}/{y}.png?key=${dotenv.env['MAPTILER_API_KEY']}',
                 'https://api.maptiler.com/maps/jp-mierune-gray/{z}/{x}/{y}.png?key=${dotenv.env['MAPTILER_API_KEY']}',
           ),
+          // TODO:サンプルのため削除
+          MarkerLayer(
+            markers: [
+              ...sampleLatlngList.map((e) => CrestMarker(latLng: e)),
+            ],
+          ),
+          // 現在地のバッファーのマーカー
           CircleLayer(
             circles: [
               CurrentPositionBufferMarker(latLng: fromPositionToLatlng(data)),
             ],
           ),
+          // 現在地
           MarkerLayer(
             markers: [
               CurrentPositionMarker(latLng: fromPositionToLatlng(data)),
-              // TODO:サンプルのため削除
-              ...sampleLatlngList.map((e) => CrestMarker(latLng: e)),
             ],
           ),
         ],

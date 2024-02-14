@@ -20,21 +20,23 @@ class HomePage extends ConsumerWidget {
           MapPage(),
           Align(
             alignment: Alignment.topRight,
-            child: Column(
-              children: <Widget>[
-                SignOutBtn(),
-                ShowCompletedCrestBtn(),
-                HelpBtn(),
-                SetCameraBtn(),
-              ],
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(0, 25, 0, 0),
+              child: Column(
+                children: <Widget>[
+                  SignOutBtn(),
+                  ShowCompletedCrestBtn(),
+                  HelpBtn(),
+                  SetCameraBtn(),
+                ],
+              ),
             ),
           ),
-          // TODO:家紋獲得ボタンの実装
-
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: GetNearbyCrestBtn(),
-          ),
+          // 家紋獲得ボタン不要かも
+          // Align(
+          //   alignment: Alignment.bottomCenter,
+          //   child: GetNearbyCrestBtn(),
+          // ),
         ],
       ),
     );
